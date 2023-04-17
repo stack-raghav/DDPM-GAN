@@ -14,6 +14,7 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 
 
 from medical_diffusion.data.datamodules import SimpleDataModule
+from medical_diffusion.data.datasets import Morula_Dataset
 #from medical_diffusion.data.datasets import AIROGSDataset, MSIvsMSS_2_Dataset, CheXpert_2_Dataset
 from medical_diffusion.models.embedders.latent_embedders import VQVAE, VQGAN, VAE, VAEGAN
 
