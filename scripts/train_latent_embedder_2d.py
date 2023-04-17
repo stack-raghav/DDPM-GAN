@@ -1,10 +1,11 @@
+import os, sys
 
-
-
-
+from os.path import dirname, join, abspath
+sys.path.insert(0, abspath(join(dirname(__file__), '..')))
 
 from pathlib import Path
 from datetime import datetime
+
 
 import torch 
 from torch.utils.data import ConcatDataset
@@ -13,7 +14,7 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 
 
 from medical_diffusion.data.datamodules import SimpleDataModule
-from medical_diffusion.data.datasets import AIROGSDataset, MSIvsMSS_2_Dataset, CheXpert_2_Dataset
+#from medical_diffusion.data.datasets import AIROGSDataset, MSIvsMSS_2_Dataset, CheXpert_2_Dataset
 from medical_diffusion.models.embedders.latent_embedders import VQVAE, VQGAN, VAE, VAEGAN
 
 import torch.multiprocessing
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     #     # path_root='/home/gustav/Documents/datasets/Kather_2/train'
     #     path_root='/mnt/hdd/datasets/pathology/kather_msi_mss_2/train/'
     # )
-
+    """
     ds_3 = CheXpert_2_Dataset( #  256x256
         # image_resize=128, 
         augment_horizontal_flip=False,
@@ -53,11 +54,18 @@ if __name__ == "__main__":
         # path_root = '/home/gustav/Documents/datasets/CheXpert/preprocessed_tianyu'
         path_root = '/mnt/hdd/datasets/chest/CheXpert/ChecXpert-v10/preprocessed_tianyu'
     )
-
+    """
+    ds_new = Morula_Dataset( #  256x256
+        # image_resize=128,
+        crawler_ext='jpg', 
+        augment_horizontal_flip=False,
+        augment_vertical_flip=False,
+        path_root = r"C:\Users\rg567\Downloads\Morula"
+    )
     # ds = ConcatDataset([ds_1, ds_2, ds_3])
    
     dm = SimpleDataModule(
-        ds_train = ds_3,
+        ds_train = ds_new,
         batch_size=8, 
         # num_workers=0,
         pin_memory=True
